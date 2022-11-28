@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Mess Compalints: </h2>
+   
+    <div class = "row mx-3">
+        {% for listing in auction_list %}
+        <!--img src="{{listing.image}}" alt="{{listing.title}}">-->
+        
+            <div class="card mx-3" style="width: 18rem; margin: 1rem;">
+                <div class="card-header">
+                    Posted by: {{listing.owner}}
+                </div>
+                <img class="card-img-top" src="{{listing.image}}" >
+                <div class="card-body">
+                <h5 class="card-title">{{listing.title}}</h5>
+                <p class="card-text">{{listing.descrption}}</p>
+                {% if user.is_authenticated and user.is_staff%}
+                    <form action="{% url 'close_auction' id=listing.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type = "submit" class = "btn btn-danger">Close complaint</button>
+                    </form>
+                {% endif %}
+                </div>
+            </div>
+        
+        {% endfor %}
+        </div>
+    
+{% endblock %}

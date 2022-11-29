@@ -10,6 +10,7 @@ from .models import User,auction_list
 
 def index(request):
     active_auction_list = auction_list.objects.filter(isactive = True) 
+    
     return render(request, "auctions/index.html",{
         "auction_list": active_auction_list,
         
